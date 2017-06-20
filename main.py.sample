@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+import sys
+
+from downloader import *
+
+downloader = Downloader()
+
+# Verbose (0, 1, 2)
+downloader.verbose_level = 1
+
+# Threads downloading at time
+downloader.num_worker_threads = 10
+
+# Paths
+# downloader.temp_path = os.getcwd()
+# downloader.temp_path = os.getcwd()
+
+# Login with cookies(bypass coludflare)
+# Make sure that login in firefox with your download ip and export cookies file with this plugin: https://addons.mozilla.org/En-us/firefox/addon/export-cookies/
+downloader.user_agent = "user agent"
+downloader.cookies = "cookies.txt"
+
+# Normal login(not work atm 10-06-17)
+downloader.username = "username"
+downloader.password = "password"
+
+# Select cookies method or login method
+downloader.login_type = LoginType.Cookie
+
+# Language formats
+# frFR     ass, srt
+# itIT     ass, srt
+# esLA     ass, srt
+# enUS     ass, srt
+# esES     ass, srt
+# deDE     ass, srt
+# arME     ass, srt
+# ptBR     ass, srt
+
+# define default subs
+default_sub = "enUS"
+
+"""
+Create your download queue from here
+"""
+
+url = "http://www.crunchyroll.com/one"
+downloader.download_queue = [
+    {'url': url, 'default_sub': default_sub, 'season': 1, 'from': 1, 'to': 3},
+    {'url': url, 'default_sub': default_sub, 'season': 2, 'chapter': 4},
+]
+
+url = "http://www.crunchyroll.com/two"
+downloader.download_queue.extend([
+    {'url': url, 'default_sub': default_sub, 'season': 1, 'from': 5, 'to': 7},
+    {'url': url, 'default_sub': default_sub, 'season': 2, 'chapter': 8},
+])
+
+try:
+    downloader.start()
+except KeyboardInterrupt:
+    sys.exit("User canceled operation.")

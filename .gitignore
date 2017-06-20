@@ -1,0 +1,6 @@
+*
+!.gitignore
+!crunchy2mkv.py
+!downloader.py
+!main.py.sample
+!LICENSE
